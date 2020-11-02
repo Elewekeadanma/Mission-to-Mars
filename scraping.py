@@ -1,8 +1,9 @@
-# Import Splinter and BeautifulSoup
+# Import Splinter, BeautifulSoup, and Pandas
 from splinter import Browser
 from bs4 import BeautifulSoup as soup
 import pandas as pd
 import datetime as dt
+
 
 def scrape_all():
     # Initiate headless driver for deployment
@@ -16,12 +17,14 @@ def scrape_all():
         "news_paragraph": news_paragraph,
         "featured_image": featured_image(browser),
         "facts": mars_facts(),
-        "last_modified": dt.datetime.now()
+        "last_modified": dt.datetime.now(),
+        "image_urls:hemisphere_image_urls"
     }
-
+    
     # Stop webdriver and return data
     browser.quit()
     return data
+
 
 def mars_news(browser):
 
@@ -90,6 +93,18 @@ def mars_facts():
 
     except BaseException:
         return None
+
+def hemisphere_links():
+    hemisphere_image_urls = []
+
+    test=browser.find_by_css("a.product-item h3")
+    for i in range(len(test)):
+    hemi_dict= {}
+    browser.find_by_css("a.product-item h3")[i].click()
+    sample_elem=browser.find_by_text("Sample").first
+    hemi_dict['img_url']= sample_elem['href']
+    hemi_dict['title']=browser.find_by_css("h2.title").text
+    hemisphere_image_urls.append(hemi_dict)
 
     # Assign columns and set index of dataframe
     df.columns=['Description', 'Mars']
