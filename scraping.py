@@ -18,7 +18,7 @@ def scrape_all():
         "featured_image": featured_image(browser),
         "facts": mars_facts(),
         "last_modified": dt.datetime.now(),
-        "image_urls:hemisphere_image_urls"
+        "image_urls":hemisphere_links(browser)
     }
     
     # Stop webdriver and return data
@@ -93,27 +93,26 @@ def mars_facts():
 
     except BaseException:
         return None
-
-def hemisphere_links():
-    hemisphere_image_urls = []
-
-    test=browser.find_by_css("a.product-item h3")
-    for i in range(len(test)):
-    hemi_dict= {}
-    browser.find_by_css("a.product-item h3")[i].click()
-    sample_elem=browser.find_by_text("Sample").first
-    hemi_dict['img_url']= sample_elem['href']
-    hemi_dict['title']=browser.find_by_css("h2.title").text
-    hemisphere_image_urls.append(hemi_dict)
-
-    # Assign columns and set index of dataframe
+     # Assign columns and set index of dataframe
     df.columns=['Description', 'Mars']
     df.set_index('Description', inplace=True)
 
     # Convert dataframe into HTML format, add bootstrap
     return df.to_html(classes="table table-striped")
 
-if __name__ == "__main__":
-
-    # If running as script, print scraped data
-    print(scrape_all())
+def hemisphere_links(browser):
+    hemisphere_image_urls = []
+    test=browser.find_by_css("a.product-item h3")
+    for i in range(len(test)):
+        hemi_dict= {}
+        browser.find_by_css("a.product-item h3")[i].click()
+        sample_elem=browser.find_by_text("Sample").first
+        hemi_dict['img_url']= sample_elem['href']
+        hemi_dict['title']=browser.find_by_css("h2.title").text
+        hemisphere_image_urls.append(hemi_dict)
+        browser.back()
+    return hemisphere_image_urls
+# if __name__ == "__main__"
+#     app.run()
+#     # If running as script, print scraped data
+#     print(scrape_all())
