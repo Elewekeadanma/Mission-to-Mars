@@ -50,7 +50,7 @@ def mars_news(browser):
 
     except AttributeError:
         return None, None
-
+    print(news_title, news_p)
     return news_title, news_p
 
 
@@ -82,7 +82,7 @@ def featured_image(browser):
 
     # Use the base url to create an absolute url
     img_url = f'https://www.jpl.nasa.gov{img_url_rel}'
-
+    print(img_url)
     return img_url
 
 def mars_facts():
@@ -111,6 +111,7 @@ def hemisphere_links(browser):
         hemi_dict['title']=browser.find_by_css("h2.title").text
         hemisphere_image_urls.append(hemi_dict)
         browser.back()
+    print(hemisphere_image_urls)
     return hemisphere_image_urls
 # if __name__ == "__main__"
 #     app.run()
