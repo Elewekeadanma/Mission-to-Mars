@@ -113,7 +113,7 @@ def hemisphere_links(browser):
         browser.back()
     print(hemisphere_image_urls)
     return hemisphere_image_urls
-# if __name__ == "__main__"
-#     app.run()
-#     # If running as script, print scraped data
-#     print(scrape_all())
+if __name__ == "__main__":
+    
+    # If running as script, print scraped data
+     print(scrape_all())
