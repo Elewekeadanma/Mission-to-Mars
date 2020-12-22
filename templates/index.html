@@ -56,12 +56,12 @@
         <div class="page-header">
           <h2 class="text-center">Mars Hemispheres</h2>
         </div>
-        {% for hemisphere in mars.hemispheres %}
+        {% for hemi_dict in mars.image_urls %}
         <div class="col-md-6">
           <div class="thumbnail">
-            <img src="{{hemi_dict.img_url | default('static/images/error.png', true)}}" alt="">
+            <img src="{{hemi_dict['img_url']}}" alt="">
             <div class="caption">
-              <h3>{{hemi_dict.title}}</h3>
+          <h3>{{hemi_dict['title']}}</h3>
             </div>
           </div>
         </div>
