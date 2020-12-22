@@ -101,9 +101,12 @@ def mars_facts():
     return df.to_html(classes="table table-striped")
 
 def hemisphere_links(browser):
+    url = 'https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars'
+    browser.visit(url)
     hemisphere_image_urls = []
     test=browser.find_by_css("a.product-item h3")
     for i in range(len(test)):
+    
         hemi_dict= {}
         browser.find_by_css("a.product-item h3")[i].click()
         sample_elem=browser.find_by_text("Sample").first
